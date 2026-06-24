@@ -135,7 +135,7 @@
 
     <div id="welcome-splash" class="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer transition-all duration-700">
         
-        <video id="splash-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
+        <video id="splash-video" class="w-full h-full object-cover" autoplay muted playsinline webkit-playsinline="true" x5-video-player-type="h5-page" x5-video-player-fullscreen="true" loop>
             <source src="assets/showreel.mp4" type="video/mp4">
             你的浏览器不支持视频播放。
         </video>
@@ -389,15 +389,29 @@
         const splash = document.getElementById('welcome-splash');
         const splashVideo = document.getElementById('splash-video');
         const splashTitle = document.getElementById('splash-title');
+        let splashPlayAttempted = false;
 
         if (splash) {
             splash.addEventListener('click', () => {
+                if (splashVideo && splashVideo.paused && !splashPlayAttempted) {
+                    splashPlayAttempted = true;
+                    const playPromise = splashVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                            // 用户点击后尝试播放视频，如果在微信内置浏览器被阻止，则保留欢迎页面。
+                        });
+                    }
+                    return;
+                }
+
                 splash.style.opacity = '0';
                 splash.style.transform = 'scale(1.05)';
                 splash.style.pointerEvents = 'none';
 
                 setTimeout(() => {
-                    splashVideo.pause();
+                    if (splashVideo) {
+                        splashVideo.pause();
+                    }
                     splash.remove();
                 }, 700);
             });
