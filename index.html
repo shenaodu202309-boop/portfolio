@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>申澳芏 Aodu Shen profolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            /* 1. 引入你的背景图片路径（根据你图片的名字和格式修改） */
+            background-image: url('assets/bg.jpg'); 
+
+            /* 2. 让背景图片固定住，不随页面滚动而滚动，产生高级的透视感 */
+            background-attachment: fixed; 
+
+            /* 3. 让图片自动等比例缩放，完美铺满整个屏幕，不留白边 */
+            background-size: cover; 
+
+            /* 4. 让图片在屏幕正中间对齐居中 */
+            background-position: center; 
+
+            /* 5. 绝对不让图片像磁贴一样重复平铺 */
+            background-repeat: no-repeat; 
+
+            scroll-behavior: smooth; 
+            font-family: "凌慧体-简", Kaiti, "PingFang SC", sans-serif !important; 
+        }
+        
+        /* 通用媒体播放容器（项目与Showreel） */
+        .media-container {
+            position: relative;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .media-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0,0,0,0.15);
+        }
+        .media-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 练习室特制：未悬停时显示封面，悬停时内部快闪视频/动图显现 */
+        .sketch-card video {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .sketch-card:hover video {
+            opacity: 1;
+        }
+        
+        /* 暗色卡片悬停呼吸灯特效 */
+        .dark-card .media-container:hover {
+            box-shadow: 0 12px 30px -10px rgba(156,163,175,0.3);
+        }
+        .font-cn {
+            font-family: "凌慧体-简", Kaiti, "PingFang SC", sans-serif !important;
+        }
+        .font-en {
+            font-family: "AKbar", Georgia, "Times New Roman", serif;
+        }
+        #splash-title {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 1.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+            transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+            pointer-events: auto;
+            color: rgba(255, 255, 255, 0.92);
+        }
+        #splash-title:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.04);
+        }
+        #splash-subtitle {
+            opacity: 0;
+            transform: translateY(0.5rem);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            line-height: 1.2;
+        }
+        #splash-title:hover + #splash-subtitle,
+        #splash-title:focus + #splash-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #welcome-splash.video-dim #splash-video {
+            filter: brightness(0.45) saturate(0.85);
+        }
+        #welcome-splash.video-dim #splash-title {
+            color: #ffffff;
+        }
+        /* 大块半透明阅读框，放在背景图片之上、文字之下 */
+        .site-content {
+            position: relative;
+            z-index: 10;
+        }
+        .site-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: 2rem;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(6px);
+            pointer-events: none;
+            z-index: -1;
+        }
+        /* light-card override for media containers in light sections */
+        .light-card .media-container {
+            background-color: #f3f4f6; /* gray-100 */
+            border-color: #e5e7eb; /* gray-200 */
+        }
+        .light-card .media-container video {
+            /* ensure video contrast on light background */
+            background-color: #111827; /* dark fallback */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans leading-normal tracking-normal">
+
+    <div id="welcome-splash" class="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer transition-all duration-700">
+        
+        <video id="splash-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="assets/showreel.mp4" type="video/mp4">
+            你的浏览器不支持视频播放。
+        </video>
+
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-20 flex flex-col items-center space-y-[0.5cm] pointer-events-none">
+            <span id="splash-title" class="text-5xl md:text-7xl font-black uppercase tracking-[0.5em] drop-shadow-[0_0_25px_rgba(0,0,0,0.65)] pointer-events-auto">
+                AODU
+            </span>
+            <div id="splash-subtitle" class="text-sm md:text-base uppercase tracking-[0.5em] text-white/90">
+                ANIMATOR | STORYTELLER
+            </div>
+
+            <div class="bg-black/50 text-white text-base md:text-lg font-bold tracking-[0.35em] uppercase px-5 py-3 rounded-full shadow-2xl pointer-events-none animate-pulse">
+                点击任意位置了解我 / CLICK ANYWHERE TO ENTER
+            </div>
+        </div>
+    </div>
+
+    <div class="site-content">
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 px-8 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold tracking-widest text-gray-600 uppercase">申澳芏 Aodu Shen</div>
+        <div class="space-x-6 text-sm font-medium text-gray-600">
+            <a href="#about" class="hover:text-gray-600 transition">关于我</a>
+            <a href="#projects" class="hover:text-gray-600 transition">项目作品</a>
+            <a href="#reels" class="hover:text-gray-600 transition">剪辑秀</a>
+            <a href="#sketches" class="hover:text-gray-600 transition">练习室</a>
+            <a href="#contact" class="hover:text-gray-600 transition border-l pl-6 border-gray-300">联系我</a>
+        </div>
+    </nav>
+
+    <header id="about" class="max-w-6xl mx-auto px-6 py-20">
+        <div class="flex flex-col md:flex-row items-start gap-16">
+            <div class="w-full md:w-1/4 lg:w-1/5 shrink-0 max-w-[260px] flex flex-col items-center">
+            <div class="w-full aspect-[3/4] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl border-8 border-white flex items-center justify-center mb-4">
+                <img src="assets/self-photo.jpg" class="w-full h-full object-cover" alt="申澳主">
+            </div>
+
+            <div class="w-full space-y-3">
+                
+                <a href="assets/chinese-resume.pdf" target="_blank" class="w-full py-3 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-2xl flex items-center justify-center font-medium shadow-md transition-all duration-300 hover:-translate-y-0.5 text-sm">
+                    <i class="fa-regular fa-file-pdf mr-2"></i> 查看中文简历 / CHINESE RESUME
+                </a>
+
+                <a href="assets/english-resume.pdf" target="_blank" class="w-full py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-2xl flex items-center justify-center font-medium shadow-md transition-all duration-300 hover:-translate-y-0.5 text-sm">
+                    <i class="fa-regular fa-file-pdf mr-2"></i> VIEW ENGLISH RESUME
+                </a>
+
+            </div>
+        </div>
+            <div class="w-full md:w-2/3">
+                <h1 class="text-2xl font-black mb-6 tracking-tight text-gray-900 uppercase">申澳芏 Aodu Shen</h1>
+                <p class="text-base text-gray-600 leading-relaxed mb-8">
+                    <span class="font-cn">我是申澳芏，一名独立动画创作者，专注于二维动画、三维动画和定格动画的创作与制作。我的作品涵盖了从概念设计、分镜制作到最终动画呈现的完整流程。我热衷于探索不同的动画风格和技术，致力于通过视觉叙事传达独特的故事和情感。</span>
+                    <br /><br />
+                    <span class="font-en">My name is Aodu Shen, an independent animator specialising in 2D animation, 3D animation, and stop-motion animation. I am involved in every stage of the creative process, from concept design and storyboarding to animation production and final delivery. Through my work, I enjoy experimenting with different visual styles, techniques, and forms of storytelling, aiming to create distinctive and emotionally engaging animated experiences.</span>
+                </p>
+                <div class="mb-10">
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4"><i class="fa-solid fa-bolt mr-2 text-gray-500"></i> 专业技能 / Core Skills</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">2D Animation</span>
+                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">3D Animation</span>
+                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Stop-Motion</span>
+                                                <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">CSP</span>
+                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">TVP</span>
+                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">AE PR PS AI ID</span>
+                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Maya Blender ZBrush Nomad Substance</span>
+                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Storyboard animatic </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <hr class="max-w-6xl mx-auto border-gray-200">
+
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold mb-16 uppercase tracking-wider text-gray-900 border-l-8 border-gray-300 pl-6 leading-none">01. 精选动画项目 / Projects</h2>
+
+        <div class="mb-20">
+            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-pen-nib"></i> 二维动画 / 2D Projects (4)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2">
+                        <div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
+                            <video src="demo.mp4" loop muted></video>
+                            <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称一》</h4><p class="text-gray-500 text-xs mb-4">悬停自动静音播放预告，双击进入专属独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情与美术设定</a></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称三》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称四》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mb-20">
+            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-cube"></i> 三维动画 / 3D Projects (2)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《3D项目名称一》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《3D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-camera-retro"></i> 定格动画 / Stop-Motion (2)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《定格项目名称一》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">《定格项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="reels" class="bg-gray-100 text-gray-900 py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-16 uppercase tracking-wider text-gray-900 border-l-8 border-gray-300 pl-6 leading-none">02. 专业剪辑秀 / Reels</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="light-card">
+                    <h3 class="text-lg font-bold mb-6 text-gray-700 uppercase tracking-widest"><i class="fa-solid fa-clapperboard mr-2"></i> Animatic Reels / 分镜动态板</h3>
+                    <div class="media-container aspect-video mb-6 shadow-md border border-gray-200" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='reel-detail.html'">
+                        <video src="demo.mp4" loop muted></video>
+                        <span class="absolute top-2 right-2 bg-gray-800/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停快进 / 双击进入技术拆解页</span>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-sm text-gray-600">
+                        1. 《影片名字 A》 - 导演/分镜制作
+                    </div>
+                </div>
+
+                <div class="light-card">
+                    <h3 class="text-lg font-bold mb-6 text-gray-700 uppercase tracking-widest"><i class="fa-solid fa-person-running mr-2"></i> Character Animation / 角色动画</h3>
+                    <div class="media-container aspect-video mb-6 shadow-md border border-gray-200" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='reel-detail.html'">
+                        <video src="demo.mp4" loop muted></video>
+                        <span class="absolute top-2 right-2 bg-gray-800/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停快进 / 双击进入技术拆解页</span>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-sm text-gray-600">
+                        1. 《影片名字 D》 - 二维原画关键帧设计
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sketches" class="bg-white py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-6 uppercase tracking-wider text-gray-900 border-l-8 border-gray-200 pl-6 leading-none">03. 练习实验室 / Sketches Lab</h2>
+            <p class="text-gray-500 mb-12 pl-8">每个方框代表一个图片压缩包。<b>鼠标悬停时内部的图片会一张张轮流闪现出现，双击进入平铺图片网格画廊。</b></p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                
+                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
+                        <span class="font-bold text-xs uppercase tracking-wider">📂 人体速写练习集</span>
+                    </div>
+                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
+                    <span class="absolute bottom-2 left-2 z-20 bg-black/60 text-white text-[8px] px-1.5 py-0.5 rounded pointer-events-none">悬停预览 / 双击平铺</span>
+                </div>
+
+                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
+                        <span class="font-bold text-xs uppercase tracking-wider">📂 色彩脚本练习集</span>
+                    </div>
+                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
+                </div>
+
+                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
+                        <span class="font-bold text-xs uppercase tracking-wider">📂 场景概念与分镜</span>
+                    </div>
+                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
+                </div>
+
+                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
+                        <span class="font-bold text-xs uppercase tracking-wider">📂 创意速写脑洞</span>
+                    </div>
+                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-100 py-16 border-t border-gray-200 text-center">
+        <p class="text-sm font-bold text-gray-500">📧 Email: your_email@example.com | WeChat: Your_Contact</p>
+    </footer>
+
+    <script>
+        const splash = document.getElementById('welcome-splash');
+        const splashVideo = document.getElementById('splash-video');
+        const splashTitle = document.getElementById('splash-title');
+
+        if (splash) {
+            splash.addEventListener('click', () => {
+                splash.style.opacity = '0';
+                splash.style.transform = 'scale(1.05)';
+                splash.style.pointerEvents = 'none';
+
+                setTimeout(() => {
+                    splashVideo.pause();
+                    splash.remove();
+                }, 700);
+            });
+        }
+
+        if (splashTitle && splash) {
+            splashTitle.addEventListener('mouseenter', () => {
+                splash.classList.add('video-dim');
+            });
+            splashTitle.addEventListener('mouseleave', () => {
+                splash.classList.remove('video-dim');
+            });
+        }
+    </script>
+    </div>
+</body>
+</html>
