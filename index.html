@@ -7,26 +7,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { 
+        @font-face {
+            font-family: "凌慧体-简";
+            src: url("assets/fonts/LingHuiTi-Jian.woff2") format("woff2"),
+                 url("assets/fonts/LingHuiTi-Jian.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "AKbar";
+            src: url("assets/fonts/AKbar.woff2") format("woff2"),
+                 url("assets/fonts/AKbar.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        body {
             /* 1. 引入你的背景图片路径（根据你图片的名字和格式修改） */
-            background-image: url('assets/bg.jpg'); 
+            background-image: url('assets/bg.jpg');
 
             /* 2. 让背景图片固定住，不随页面滚动而滚动，产生高级的透视感 */
-            background-attachment: fixed; 
+            background-attachment: fixed;
 
             /* 3. 让图片自动等比例缩放，完美铺满整个屏幕，不留白边 */
-            background-size: cover; 
+            background-size: cover;
 
             /* 4. 让图片在屏幕正中间对齐居中 */
-            background-position: center; 
+            background-position: center;
 
             /* 5. 绝对不让图片像磁贴一样重复平铺 */
-            background-repeat: no-repeat; 
+            background-repeat: no-repeat;
 
-            scroll-behavior: smooth; 
-            font-family: "凌慧体-简", Kaiti, "PingFang SC", sans-serif !important; 
+            scroll-behavior: smooth;
+            font-family: "凌慧体-简", Kaiti, "PingFang SC", sans-serif !important;
         }
-        
+
         /* 通用媒体播放容器（项目与Showreel） */
         .media-container {
             position: relative;
@@ -49,7 +65,44 @@
             height: 100%;
             object-fit: cover;
         }
-        
+        .detail-bounce-out {
+            animation: detailBounceOut 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+            transform-origin: center;
+            will-change: transform, box-shadow;
+        }
+        @keyframes detailBounceOut {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            }
+            38% {
+                transform: scale(0.97);
+            }
+            72% {
+                transform: scale(1.035);
+                box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+            }
+            100% {
+                transform: scale(1.01);
+                box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+            }
+        }
+        .project-media-slot,
+        .project-info-slot {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .project-media-slot {
+                flex: 0 1 65%;
+                width: auto;
+            }
+            .project-info-slot {
+                flex: 1 1 35%;
+                min-width: 0;
+                width: auto;
+            }
+        }
+
         /* 练习室特制：未悬停时显示封面，悬停时内部快闪视频/动图显现 */
         .sketch-card video {
             opacity: 0;
@@ -58,7 +111,7 @@
         .sketch-card:hover video {
             opacity: 1;
         }
-        
+
         /* 暗色卡片悬停呼吸灯特效 */
         .dark-card .media-container:hover {
             box-shadow: 0 12px 30px -10px rgba(156,163,175,0.3);
@@ -134,7 +187,7 @@
 <body class="bg-gray-50 text-gray-900 font-sans leading-normal tracking-normal">
 
     <div id="welcome-splash" class="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer transition-all duration-700">
-        
+
         <video id="splash-video" class="w-full h-full object-cover" autoplay muted playsinline webkit-playsinline="true" x5-video-player-type="h5-page" x5-video-player-fullscreen="true" loop>
             <source src="assets/showreel.mp4" type="video/mp4">
             你的浏览器不支持视频播放。
@@ -168,13 +221,13 @@
 
     <header id="about" class="max-w-6xl mx-auto px-6 py-20">
         <div class="flex flex-col md:flex-row items-start gap-16">
-            <div class="w-full md:w-1/4 lg:w-1/5 shrink-0 max-w-[260px] flex flex-col items-center">
-            <div class="w-full aspect-[3/4] bg-gray-200 rounded-3xl overflow-hidden shadow-2xl border-8 border-white flex items-center justify-center mb-4">
+            <div class="w-full md:w-1/4 lg:w-1/5 shrink-0 max-w-[130px] flex flex-col items-center">
+            <div class="w-full aspect-square bg-gray-200 overflow-hidden shadow-2xl flex items-center justify-center mb-4">
                 <img src="assets/self-photo.jpg" class="w-full h-full object-cover" alt="申澳主">
             </div>
 
             <div class="w-full space-y-3">
-                
+
                 <a href="assets/chinese-resume.pdf" target="_blank" class="w-full py-3 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-2xl flex items-center justify-center font-medium shadow-md transition-all duration-300 hover:-translate-y-0.5 text-sm">
                     <i class="fa-regular fa-file-pdf mr-2"></i> 查看中文简历 / CHINESE RESUME
                 </a>
@@ -219,39 +272,42 @@
         <div class="mb-20">
             <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-pen-nib"></i> 二维动画 / 2D Projects (4)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2">
-                        <div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
-                            <video src="demo.mp4" loop muted></video>
+
+                <div id="followbutterfly-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
+                    <div class="project-media-slot">
+                        <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
+                            <video src="预告/Followbutterfly.mp4" loop muted></video>
                             <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
                         </div>
                     </div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称一》</h4><p class="text-gray-500 text-xs mb-4">悬停自动静音播放预告，双击进入专属独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情与美术设定</a></div>
+                    <div class="project-info-slot flex flex-col justify-between">
+                        <div class="pt-4">
+                            <h4 class="text-base font-bold leading-tight">Followbutterfly</h4>
+                            <h4 class="text-base font-bold leading-tight">追随蝴蝶</h4>
+                        </div>
+                        <div class="space-y-2 pb-4"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情页</a></div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">《2D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称三》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+                <div id="margaret-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='margaret-detail.html'"><video src="预告/The Night Margaret Became a Fairy_1.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">The Night Margaret Became a Fairy</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="margaret-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">《2D项目名称四》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
@@ -263,18 +319,18 @@
         <div class="mb-20">
             <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-cube"></i> 三维动画 / 3D Projects (2)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《3D项目名称一》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+
+                <div id="deadline-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='deadline-detail.html'"><video src="预告/deadline.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
+                        <div><h4 class="text-lg font-bold mb-2">The Deadline</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
+                        <div class="space-y-2"><a href="deadline-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">《3D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
@@ -286,18 +342,26 @@
         <div>
             <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-camera-retro"></i> 定格动画 / Stop-Motion (2)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《定格项目名称一》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
+
+                <div id="stopmotion-project-1-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
+                    <div class="project-media-slot">
+                        <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='stopmotion-detail.html'">
+                            <video src="预告/In Operation.mp4" loop muted></video>
+                            <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
+                        </div>
+                    </div>
+                    <div class="project-info-slot flex flex-col justify-between">
+                        <div class="pt-4">
+                            <h4 class="text-base font-bold leading-tight">In Operation</h4>
+                            <h4 class="text-base font-bold leading-tight">手术中</h4>
+                        </div>
+                        <div class="space-y-2 pb-4"><a href="stopmotion-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情页</a></div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/2"><div class="media-container aspect-video h-full" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="w-full md:w-1/2 flex flex-col justify-between">
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
+                    <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">《定格项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
                     </div>
@@ -310,7 +374,7 @@
     <section id="reels" class="bg-gray-100 text-gray-900 py-20">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-3xl font-bold mb-16 uppercase tracking-wider text-gray-900 border-l-8 border-gray-300 pl-6 leading-none">02. 专业剪辑秀 / Reels</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <div class="light-card">
                     <h3 class="text-lg font-bold mb-6 text-gray-700 uppercase tracking-widest"><i class="fa-solid fa-clapperboard mr-2"></i> Animatic Reels / 分镜动态板</h3>
@@ -341,9 +405,9 @@
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-3xl font-bold mb-6 uppercase tracking-wider text-gray-900 border-l-8 border-gray-200 pl-6 leading-none">03. 练习实验室 / Sketches Lab</h2>
             <p class="text-gray-500 mb-12 pl-8">每个方框代表一个图片压缩包。<b>鼠标悬停时内部的图片会一张张轮流闪现出现，双击进入平铺图片网格画廊。</b></p>
-            
+
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                
+
                 <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
                     <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
                         <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
@@ -389,9 +453,65 @@
         const splash = document.getElementById('welcome-splash');
         const splashVideo = document.getElementById('splash-video');
         const splashTitle = document.getElementById('splash-title');
+        const shouldSkipIntro = new URLSearchParams(window.location.search).get('skipIntro') === '1';
+        const returnTarget = window.location.hash;
         let splashPlayAttempted = false;
 
-        if (splash) {
+        function openProjectDetail(event, trigger, targetUrl = 'project-detail.html') {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (event.stopImmediatePropagation) {
+                    event.stopImmediatePropagation();
+                }
+            }
+
+            const card = trigger.closest('#projects .bg-white.rounded-3xl') || trigger;
+            if (card.dataset.openingDetail === 'true') {
+                return;
+            }
+
+            card.dataset.openingDetail = 'true';
+            card.classList.add('detail-bounce-out');
+
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 420);
+        }
+
+        document.addEventListener('click', (event) => {
+            const detailLink = event.target.closest('a[href$="-detail.html"]');
+            if (detailLink) {
+                openProjectDetail(event, detailLink, detailLink.getAttribute('href'));
+            }
+        }, true);
+
+        document.addEventListener('dblclick', (event) => {
+            const detailMedia = event.target.closest('.media-container');
+            const detailAction = detailMedia ? detailMedia.getAttribute('ondblclick') : '';
+            const detailTarget = detailAction.match(/['"]([^'"]*-detail\.html)['"]/);
+            if (detailTarget) {
+                openProjectDetail(event, detailMedia, detailTarget[1]);
+            }
+        }, true);
+
+        if (shouldSkipIntro && splash) {
+            if (splashVideo) {
+                splashVideo.pause();
+            }
+            splash.remove();
+
+            if (returnTarget) {
+                requestAnimationFrame(() => {
+                    const target = document.querySelector(returnTarget);
+                    if (target) {
+                        target.scrollIntoView({ block: 'center' });
+                    }
+                });
+            }
+        }
+
+        if (splash && !shouldSkipIntro) {
             splash.addEventListener('click', () => {
                 if (splashVideo && splashVideo.paused && !splashPlayAttempted) {
                     splashPlayAttempted = true;

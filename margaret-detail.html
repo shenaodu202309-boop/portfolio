@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Night Margaret Became a Fairy | Project Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            position: relative;
+            isolation: isolate;
+            background-color: #0b1018;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -12px;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(7, 14, 24, 0.28), rgba(5, 10, 18, 0.42)),
+                url("margaret-background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(3px) brightness(0.82);
+        }
+
+        .margaret-art-crop {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .margaret-art-crop.crop-left { aspect-ratio: 1.217 / 1; }
+        .margaret-art-crop.crop-right { aspect-ratio: 1.377 / 1; }
+
+        .margaret-art-crop img {
+            position: absolute;
+            top: 0;
+            width: auto;
+            max-width: none;
+            height: 100%;
+        }
+
+        .margaret-art-crop.crop-left img { left: 0; }
+        .margaret-art-crop.crop-right img { left: -88.3%; }
+
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-900 font-sans">
+
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+        <a href="简历index.html?skipIntro=1#margaret-card" class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition bg-white px-4 py-2 rounded-full border border-gray-200">
+            <i class="fa-solid fa-arrow-left"></i> 返回主页作品集
+        </a>
+    </div>
+
+    <section class="max-w-6xl mx-auto px-6 py-8">
+        <div class="w-full aspect-video bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-200">
+            <video src="预告/The Night Margaret Became a Fairy_1.mp4" controls autoplay class="w-full h-full object-contain"></video>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 flex justify-center">
+        <div class="w-full max-w-3xl space-y-8">
+            <div>
+                <h1 class="text-4xl font-black text-white mb-4">The Night Margaret Became a Fairy</h1>
+                <p class="text-white/80 leading-relaxed text-base">
+                    灵感来自于《大师与玛格丽特》这本小说，在书中玛格丽特小姐变成妖精奔向爱情，更多的玛格丽特小姐可以为自己变成精灵奔向新生
+                </p>
+                <p class="mt-2 text-white/70 leading-relaxed text-base">
+                    Inspired by the novel The Master and Margarita. In the book, Miss Margarita transforms into a fairy and runs toward love. More women like Margarita can choose to become fairies for themselves and run toward a new life.
+                </p>
+                <p class="mt-4 text-xs font-semibold text-white/80">
+                    项目类型：2D 动画　｜　时长：1 分 38 秒　｜　使用软件：CSP、AE
+                </p>
+                <p class="mt-1 text-xs text-white/70">
+                    Project type: 2D Animation | Duration: 1 min 38 sec | Software: CSP, AE
+                </p>
+            </div>
+
+            <div>
+                <a href="https://filmfreeway.com/TheNightMargaretBecameaFairy" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-emerald-50 hover:bg-emerald-100 text-gray-900 font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-emerald-100 transition">
+                    <i class="fa-solid fa-play"></i> 观看完整正片 / Watch Full Film
+                </a>
+            </div>
+
+            <div class="w-full p-[0.3cm] bg-white/75 rounded-3xl border border-white/80 shadow-xl md:w-[120%] md:-ml-[10%]">
+                <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-image text-emerald-900"></i> 美术设计 / Art Design
+                </h3>
+                <div class="space-y-0 overflow-hidden rounded-2xl">
+                    <div class="margaret-art-crop crop-left">
+                        <img src="margaret-art-design.jpg" alt="The Night Margaret Became a Fairy 角色设计">
+                    </div>
+                    <div class="margaret-art-crop crop-right">
+                        <img src="margaret-art-design.jpg" alt="The Night Margaret Became a Fairy 效果图">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

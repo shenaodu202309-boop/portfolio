@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Deadline | Project Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #fdf4f8;
+            background-image:
+                linear-gradient(rgba(8, 22, 55, 0.64), rgba(12, 25, 68, 0.78)),
+                url("deadline-background.png");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .deadline-art-crop {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.09 / 1;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .deadline-art-crop img {
+            position: absolute;
+            top: 0;
+            width: 300%;
+            max-width: none;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        .deadline-art-underlay {
+            z-index: 1;
+            filter: brightness(0) invert(1);
+        }
+
+        .deadline-art-original {
+            z-index: 2;
+        }
+
+        .deadline-art-crop.crop-left img { left: 0; }
+        .deadline-art-crop.crop-center img { left: -100%; }
+        .deadline-art-crop.crop-right img { left: -200%; }
+
+        .deadline-art-stack {
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.7);
+            border: 6px solid #f4f1ff;
+            border-radius: 24px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
+        }
+
+        .deadline-art-stack figure {
+            margin: 0;
+        }
+
+        .deadline-art-stack figure + figure {
+            margin-top: -3px;
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-900 font-sans">
+
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+        <a href="简历index.html?skipIntro=1#deadline-card" class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition bg-white px-4 py-2 rounded-full border border-gray-200">
+            <i class="fa-solid fa-arrow-left"></i> 返回主页作品集
+        </a>
+    </div>
+
+    <section class="max-w-6xl mx-auto px-6 py-8">
+        <div class="w-full aspect-video bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-200">
+            <video src="预告/deadline.mp4" controls autoplay class="w-full h-full object-contain"></video>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 flex justify-center">
+        <div class="w-full max-w-3xl space-y-8">
+            <div>
+                <h1 class="text-4xl font-black text-white mb-4">The Deadline</h1>
+                <p class="text-blue-100 leading-relaxed text-base">
+                    当截止日期已经到来，但你还什么都没做……
+                </p>
+                <p class="mt-2 text-blue-100 leading-relaxed text-base">
+                    When the deadline is coming, but you still haven't done anything...
+                </p>
+                <p class="mt-4 text-xs font-semibold text-blue-100">
+                    项目类型：3D 动画　｜　时长：1 分钟　｜　使用软件：Blender
+                </p>
+                <p class="mt-1 text-xs text-blue-100">
+                    Project type: 3D Animation | Duration: 1 minute | Software: Blender
+                </p>
+            </div>
+
+            <div>
+                <a href="https://filmfreeway.com/TheDeadline330" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-pink-50 text-gray-800 font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-pink-100 hover:bg-pink-100 transition-colors">
+                    <i class="fa-solid fa-play"></i> 观看完整正片 / Watch Full Film
+                </a>
+            </div>
+
+            <div class="w-full md:w-[130%] md:-ml-[18%]">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-image text-blue-200"></i> 美术设计 / Art Design
+                </h3>
+                <div class="deadline-art-stack space-y-0">
+                    <figure>
+                        <div class="deadline-art-crop crop-left">
+                            <img class="deadline-art-underlay" src="deadline-art-design.png" alt="">
+                            <img class="deadline-art-original" src="deadline-art-design.png" alt="The Deadline 角色设计">
+                        </div>
+                    </figure>
+                    <figure>
+                        <div class="deadline-art-crop crop-center">
+                            <img class="deadline-art-underlay" src="deadline-art-design.png" alt="">
+                            <img class="deadline-art-original" src="deadline-art-design.png" alt="The Deadline 风格设计">
+                        </div>
+                    </figure>
+                    <figure>
+                        <div class="deadline-art-crop crop-right">
+                            <img class="deadline-art-underlay" src="deadline-art-design.png" alt="">
+                            <img class="deadline-art-original" src="deadline-art-design.png" alt="The Deadline 完成效果">
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

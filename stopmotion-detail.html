@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Operation / 手术中 | Project Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.16;
+            background-image: url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M42 57c-10-12-31-7-31 12 0 17 18 27 31 40 13-13 31-23 31-40 0-19-21-24-31-12z' fill='none' stroke='%23ff9ac8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M137 118c-7-8-21-5-21 8 0 11 12 18 21 27 9-9 21-16 21-27 0-13-14-16-21-8z' fill='none' stroke='%23ffb1d5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+        .lace-frame {
+            position: relative;
+            isolation: isolate;
+            padding: 14px;
+            border-radius: 2rem;
+            background:
+                radial-gradient(circle at 12px 12px, rgba(216, 180, 254, 0.72) 0 5px, transparent 5.5px) 0 0 / 24px 24px,
+                radial-gradient(circle at 12px 12px, rgba(244, 114, 182, 0.28) 0 3px, transparent 3.5px) 12px 12px / 24px 24px,
+                rgba(91, 53, 140, 0.22);
+            box-shadow: 0 24px 60px rgba(24, 8, 47, 0.42);
+        }
+        .lace-frame::before {
+            content: "";
+            position: absolute;
+            inset: 7px;
+            border: 1px dashed rgba(233, 213, 255, 0.55);
+            border-radius: 1.5rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .lace-frame > div {
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 12px 30px rgba(24, 8, 47, 0.28);
+        }
+    </style>
+</head>
+<body class="bg-[#160d2c] text-purple-50 font-sans">
+
+    <div class="max-w-6xl mx-auto px-6 pt-8">
+        <a href="简历index.html?skipIntro=1#stopmotion-project-1-card" class="inline-flex items-center gap-2 text-sm text-purple-100 hover:text-white transition bg-[#2a1948] hover:bg-[#36225c] px-4 py-2 rounded-full border border-purple-300/20 shadow-lg shadow-purple-950/30">
+            <i class="fa-solid fa-arrow-left"></i> 返回主页作品集
+        </a>
+    </div>
+
+    <section class="max-w-6xl mx-auto px-6 py-8">
+        <div class="lace-frame">
+            <div class="w-full aspect-video bg-[#0f0920] rounded-3xl overflow-hidden border border-purple-300/20">
+                <video src="预告/In Operation.mp4" controls autoplay class="w-full h-full object-contain"></video>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 flex justify-center">
+        <div class="w-full max-w-3xl space-y-8">
+            <div>
+                <h1 class="text-4xl font-black text-purple-100 mb-4">In Operation / 手术中</h1>
+                <p class="text-purple-200/75 leading-relaxed text-base">
+                    这是一个带有童话氛围的冒险小故事，灵感来自于我初中时期第一次做手术途中经历的心路历程。
+                </p>
+                <p class="mt-2 text-purple-200/75 leading-relaxed text-base">
+                    A fairy-tale-like adventure story inspired by the emotional journey of my first surgery experience during junior high school.
+                </p>
+                <p class="mt-4 text-xs font-semibold text-purple-300/80">
+                    项目类型：动画、实验、短片 · 类型：恐怖儿童冒险 · 原产地：中国 · 动画时长：5分46秒
+                </p>
+                <p class="mt-1 text-xs text-purple-300/70">
+                    Project type: Animation, experimental, short film · Genre: horror children's adventure · Country of origin: China · Duration: 5 min 46 sec
+                </p>
+            </div>
+
+            <div>
+                <a href="https://filmfreeway.com/Inoperation391" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-[#3a245f] hover:bg-[#4a2f78] text-purple-100 font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-purple-950/40 border border-purple-300/20 transition">
+                    <i class="fa-solid fa-play"></i> 观看完整正片 / Watch Full Film
+                </a>
+            </div>
+
+            <div class="w-full p-8 bg-[#24163d] rounded-3xl border border-purple-300/20 shadow-xl shadow-purple-950/40 md:w-[120%] md:-ml-[10%]">
+                <h3 class="text-lg font-bold text-purple-100 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-image text-fuchsia-300"></i> 美术设计 / Portfolio
+                </h3>
+                <div class="space-y-0">
+                    <div class="w-full border border-purple-300/20 bg-[#160d2c] overflow-hidden">
+                        <img src="UAL排版文件3.png" alt="项目资料图 1" class="w-full h-auto block">
+                    </div>
+                    <div class="w-full border border-purple-300/20 bg-[#160d2c] overflow-hidden">
+                        <img src="UAL排版文件4.png" alt="项目资料图 2" class="w-full h-auto block">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
