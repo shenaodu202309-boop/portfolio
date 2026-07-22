@@ -216,7 +216,7 @@
 
     <div id="welcome-splash" class="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer transition-all duration-700">
 
-        <video id="splash-video" class="w-full h-full object-cover" autoplay muted playsinline webkit-playsinline="true" x5-video-player-type="h5-page" x5-video-player-fullscreen="true" loop>
+        <video id="splash-video" class="w-full h-full object-cover" poster="assets/showreel-poster.png" autoplay="autoplay" muted="muted" playsinline webkit-playsinline="true" x5-playsinline="true" x5-video-player-type="h5-page" x5-video-player-fullscreen="false" preload="auto" disablepictureinpicture loop>
             <source src="assets/showreel.mp4" type="video/mp4">
             你的浏览器不支持视频播放。
         </video>
@@ -484,6 +484,31 @@
         const shouldSkipIntro = new URLSearchParams(window.location.search).get('skipIntro') === '1';
         const returnTarget = window.location.hash;
         let splashPlayAttempted = false;
+
+        function tryStartSplashVideo() {
+            if (!splashVideo || shouldSkipIntro) {
+                return;
+            }
+
+            splashVideo.muted = true;
+            splashVideo.defaultMuted = true;
+            splashVideo.playsInline = true;
+
+            const playAttempt = splashVideo.play();
+            if (playAttempt !== undefined) {
+                playAttempt.catch(() => {
+                    // 浏览器仍禁止自动播放时保留封面，用户点击后再尝试播放。
+                });
+            }
+        }
+
+        if (splashVideo && !shouldSkipIntro) {
+            tryStartSplashVideo();
+            splashVideo.addEventListener('loadedmetadata', tryStartSplashVideo, { once: true });
+            splashVideo.addEventListener('canplay', tryStartSplashVideo, { once: true });
+            document.addEventListener('WeixinJSBridgeReady', tryStartSplashVideo, false);
+            window.addEventListener('pageshow', tryStartSplashVideo);
+        }
 
         const projectPreviewVideos = Array.from(
             document.querySelectorAll('#projects .media-container video[src^="预告/"]')
