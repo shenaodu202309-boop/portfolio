@@ -65,6 +65,34 @@
             height: 100%;
             object-fit: cover;
         }
+        .mobile-preview-toggle {
+            display: none;
+        }
+        @media (hover: none), (pointer: coarse) {
+            .mobile-preview-toggle {
+                position: absolute;
+                inset: 50% auto auto 50%;
+                z-index: 20;
+                display: grid;
+                width: 48px;
+                height: 48px;
+                place-items: center;
+                transform: translate(-50%, -50%);
+                border: 1px solid rgba(255, 255, 255, 0.7);
+                border-radius: 50%;
+                color: #ffffff;
+                background: rgba(0, 0, 0, 0.62);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
+                transition: opacity 0.2s ease;
+            }
+            .mobile-preview-toggle.is-playing {
+                opacity: 0;
+                pointer-events: none;
+            }
+            #projects .media-container > span {
+                display: none;
+            }
+        }
         .detail-bounce-out {
             animation: detailBounceOut 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
             transform-origin: center;
@@ -276,7 +304,7 @@
                 <div id="followbutterfly-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
                     <div class="project-media-slot">
                         <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
-                            <video src="预告/Followbutterfly.mp4" loop muted></video>
+                            <video src="预告/Followbutterfly.mp4" poster="预告/posters/followbutterfly.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
                             <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
                         </div>
                     </div>
@@ -298,7 +326,7 @@
                 </div>
 
                 <div id="margaret-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='margaret-detail.html'"><video src="预告/The Night Margaret Became a Fairy_1.mp4" loop muted></video></div></div>
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='margaret-detail.html'"><video src="预告/The Night Margaret Became a Fairy_1.mp4" poster="预告/posters/margaret.png" loop muted playsinline webkit-playsinline preload="metadata"></video></div></div>
                     <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">The Night Margaret Became a Fairy</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="margaret-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
@@ -321,7 +349,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
                 <div id="deadline-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='deadline-detail.html'"><video src="预告/deadline.mp4" loop muted></video></div></div>
+                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='deadline-detail.html'"><video src="预告/deadline.mp4" poster="预告/posters/deadline.png" loop muted playsinline webkit-playsinline preload="metadata"></video></div></div>
                     <div class="project-info-slot flex flex-col justify-between">
                         <div><h4 class="text-lg font-bold mb-2">The Deadline</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
                         <div class="space-y-2"><a href="deadline-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
@@ -346,7 +374,7 @@
                 <div id="stopmotion-project-1-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
                     <div class="project-media-slot">
                         <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='stopmotion-detail.html'">
-                            <video src="预告/In Operation.mp4" loop muted></video>
+                            <video src="预告/In Operation.mp4" poster="预告/posters/in-operation.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
                             <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
                         </div>
                     </div>
@@ -456,6 +484,70 @@
         const shouldSkipIntro = new URLSearchParams(window.location.search).get('skipIntro') === '1';
         const returnTarget = window.location.hash;
         let splashPlayAttempted = false;
+
+        const projectPreviewVideos = Array.from(
+            document.querySelectorAll('#projects .media-container video[src^="预告/"]')
+        );
+        const usesTouchPreview = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+        projectPreviewVideos.forEach((video) => {
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+
+            if (!usesTouchPreview) {
+                return;
+            }
+
+            const previewButton = document.createElement('button');
+            previewButton.type = 'button';
+            previewButton.className = 'mobile-preview-toggle';
+            previewButton.setAttribute('aria-label', '播放项目预告');
+            previewButton.innerHTML = '<i class="fa-solid fa-play" aria-hidden="true"></i>';
+            video.parentElement.appendChild(previewButton);
+
+            const updatePreviewButton = () => {
+                previewButton.classList.toggle('is-playing', !video.paused);
+            };
+
+            const togglePreview = (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (video.paused) {
+                    const playAttempt = video.play();
+                    if (playAttempt !== undefined) {
+                        playAttempt.catch(updatePreviewButton);
+                    }
+                } else {
+                    video.pause();
+                }
+            };
+
+            previewButton.addEventListener('click', togglePreview);
+            video.addEventListener('click', togglePreview);
+            video.addEventListener('play', updatePreviewButton);
+            video.addEventListener('pause', updatePreviewButton);
+            updatePreviewButton();
+        });
+
+        if (usesTouchPreview && 'IntersectionObserver' in window) {
+            const previewObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const video = entry.target;
+                    if (entry.isIntersecting) {
+                        const playAttempt = video.play();
+                        if (playAttempt !== undefined) {
+                            playAttempt.catch(() => {});
+                        }
+                    } else {
+                        video.pause();
+                    }
+                });
+            }, { threshold: 0.55 });
+
+            projectPreviewVideos.forEach((video) => previewObserver.observe(video));
+        }
 
         function openProjectDetail(event, trigger, targetUrl = 'project-detail.html') {
             if (event) {
