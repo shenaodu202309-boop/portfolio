@@ -179,15 +179,6 @@
             transform: translate(-50%, -50%) scale(0.9);
         }
 
-        /* 练习室特制：未悬停时显示封面，悬停时内部快闪视频/动图显现 */
-        .sketch-card video {
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .sketch-card:hover video {
-            opacity: 1;
-        }
-
         /* 暗色卡片悬停呼吸灯特效 */
         .dark-card .media-container:hover {
             box-shadow: 0 12px 30px -10px rgba(156,163,175,0.3);
@@ -366,7 +357,6 @@
             <a href="#about" class="hover:text-gray-600 transition">关于我 / About</a>
             <a href="#projects" class="hover:text-gray-600 transition">动画 / Animation</a>
             <a href="#reels" class="hover:text-gray-600 transition">角色与视觉开发 / Character &amp; Visual Development</a>
-            <a href="#sketches" class="hover:text-gray-600 transition">练习室 / Sketches</a>
             <a href="#contact" class="hover:text-gray-600 transition border-l pl-6 border-gray-300">联系我 / Contact</a>
         </div>
     </nav>
@@ -570,52 +560,8 @@
         </div>
     </dialog>
 
-    <section id="sketches" class="bg-white py-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-6 uppercase tracking-wider text-gray-900 border-l-8 border-gray-200 pl-6 leading-none">03. 练习实验室 / Sketches Lab</h2>
-            <p class="text-gray-500 mb-12 pl-8">每个方框代表一个图片压缩包。<b>鼠标悬停时内部的图片会一张张轮流闪现出现，双击进入平铺图片网格画廊。</b></p>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-
-                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
-                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
-                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
-                        <span class="font-bold text-xs uppercase tracking-wider">📂 人体速写练习集</span>
-                    </div>
-                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
-                    <span class="absolute bottom-2 left-2 z-20 bg-black/60 text-white text-[8px] px-1.5 py-0.5 rounded pointer-events-none">悬停预览 / 双击平铺</span>
-                </div>
-
-                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
-                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
-                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
-                        <span class="font-bold text-xs uppercase tracking-wider">📂 色彩脚本练习集</span>
-                    </div>
-                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
-                </div>
-
-                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
-                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
-                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
-                        <span class="font-bold text-xs uppercase tracking-wider">📂 场景概念与分镜</span>
-                    </div>
-                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
-                </div>
-
-                <div class="media-container sketch-card aspect-[3/4] bg-gray-100" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause(); this.querySelector('video').currentTime = 0;" ondblclick="window.location.href='sketch-detail.html'">
-                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 text-zinc-500 p-4 text-center">
-                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-gray-500/60"></i>
-                        <span class="font-bold text-xs uppercase tracking-wider">📂 创意速写脑洞</span>
-                    </div>
-                    <video src="demo.mp4" loop muted class="absolute inset-0 z-10"></video>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
     <footer id="contact" class="bg-gray-100 py-16 border-t border-gray-200 text-center">
-        <p class="text-sm font-bold text-gray-500">📧 Email: your_email@example.com | WeChat: Your_Contact</p>
+        <p class="text-sm font-bold text-gray-500">Email: shenaodu202309@gmail.com | WeChat: 13122201521</p>
     </footer>
 
     <script>
