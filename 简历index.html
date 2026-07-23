@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>申澳芏 Aodu Shen profolio</title>
+    <title>申澳芏 Aodu Shen Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -115,20 +115,68 @@
                 box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
             }
         }
-        .project-media-slot,
-        .project-info-slot {
-            width: 100%;
+        .project-grid-card {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            scroll-snap-align: start;
+            padding: 1rem;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            background: #ffffff;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
         }
-        @media (min-width: 768px) {
-            .project-media-slot {
-                flex: 0 1 65%;
-                width: auto;
-            }
-            .project-info-slot {
-                flex: 1 1 35%;
-                min-width: 0;
-                width: auto;
-            }
+        .project-grid-card .media-container {
+            border-radius: 4px;
+            border-color: rgba(31, 41, 55, 0.28);
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+        }
+        .project-grid-card .media-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.14);
+        }
+        .project-grid-title {
+            letter-spacing: 0;
+            overflow-wrap: anywhere;
+        }
+        .project-title-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-type-label {
+            flex: 0 0 auto;
+            padding: 0.16rem 0.42rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            color: #4b5563;
+            background: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 0.66rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .project-play-hint {
+            position: absolute;
+            inset: 50% auto auto 50%;
+            z-index: 10;
+            display: grid;
+            width: 54px;
+            height: 54px;
+            place-items: center;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.28);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .project-grid-card .media-container:hover .project-play-hint {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.9);
         }
 
         /* 练习室特制：未悬停时显示封面，悬停时内部快闪视频/动图显现 */
@@ -210,6 +258,82 @@
             /* ensure video contrast on light background */
             background-color: #111827; /* dark fallback */
         }
+        #portfolio-image-grid {
+            display: block;
+            width: 100%;
+        }
+        #portfolio-image-grid .portfolio-row {
+            display: flex;
+            width: 100%;
+            gap: 0;
+            align-items: flex-start;
+        }
+        #portfolio-image-grid .portfolio-row > button {
+            display: block;
+            flex: var(--portfolio-ratio, 1.7778) 1 0;
+            min-width: 0;
+            height: auto;
+            aspect-ratio: var(--portfolio-ratio, 1.7778);
+            margin: 0;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            background: transparent;
+        }
+        #portfolio-image-grid .portfolio-row > button img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transform: none !important;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            #projects .media-container::after,
+            #portfolio-image-grid [data-portfolio-full]::after {
+                position: absolute;
+                left: 50%;
+                bottom: 10px;
+                z-index: 30;
+                padding: 5px 9px;
+                border-radius: 5px;
+                color: #ffffff;
+                background: rgba(17, 24, 39, 0.76);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+                font-size: 11px;
+                font-weight: 500;
+                line-height: 1.2;
+                letter-spacing: 0;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transform: translate(-50%, 5px);
+                transition:
+                    opacity 0.18s ease 0s,
+                    transform 0.18s ease 0s;
+            }
+            #projects .media-container::after {
+                content: "双击可进入详情";
+            }
+            #portfolio-image-grid [data-portfolio-full]::after {
+                content: "点击可放大";
+            }
+            #projects .media-container:hover::after,
+            #portfolio-image-grid [data-portfolio-full]:hover::after {
+                opacity: 1;
+                transform: translate(-50%, 0);
+                transition-delay: 0.7s;
+            }
+        }
+        #portfolio-lightbox {
+            border: 0;
+        }
+        #portfolio-lightbox::backdrop {
+            background: rgba(10, 10, 14, 0.9);
+            backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans leading-normal tracking-normal">
@@ -236,18 +360,18 @@
     </div>
 
     <div class="site-content">
-    <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 px-8 py-4 flex justify-between items-center">
-        <div class="text-xl font-bold tracking-widest text-gray-600 uppercase">申澳芏 Aodu Shen</div>
-        <div class="space-x-6 text-sm font-medium text-gray-600">
-            <a href="#about" class="hover:text-gray-600 transition">关于我</a>
-            <a href="#projects" class="hover:text-gray-600 transition">项目作品</a>
-            <a href="#reels" class="hover:text-gray-600 transition">剪辑秀</a>
-            <a href="#sketches" class="hover:text-gray-600 transition">练习室</a>
-            <a href="#contact" class="hover:text-gray-600 transition border-l pl-6 border-gray-300">联系我</a>
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 px-8 py-4 flex justify-between items-center gap-6">
+        <div class="shrink-0 text-xl font-bold tracking-widest text-gray-600 uppercase">申澳芏 Aodu Shen</div>
+        <div class="flex flex-wrap justify-end gap-x-6 gap-y-2 text-sm font-medium text-gray-600">
+            <a href="#about" class="hover:text-gray-600 transition">关于我 / About</a>
+            <a href="#projects" class="hover:text-gray-600 transition">动画 / Animation</a>
+            <a href="#reels" class="hover:text-gray-600 transition">角色与视觉开发 / Character &amp; Visual Development</a>
+            <a href="#sketches" class="hover:text-gray-600 transition">练习室 / Sketches</a>
+            <a href="#contact" class="hover:text-gray-600 transition border-l pl-6 border-gray-300">联系我 / Contact</a>
         </div>
     </nav>
 
-    <header id="about" class="max-w-6xl mx-auto px-6 py-20">
+    <header id="about" class="max-w-6xl mx-auto px-6 pt-20 pb-[0.5cm]">
         <div class="flex flex-col md:flex-row items-start gap-16">
             <div class="w-full md:w-1/4 lg:w-1/5 shrink-0 max-w-[130px] flex flex-col items-center">
             <div class="w-full aspect-square bg-gray-200 overflow-hidden shadow-2xl flex items-center justify-center mb-4">
@@ -265,169 +389,186 @@
                 </a>
 
             </div>
+
         </div>
             <div class="w-full md:w-2/3">
-                <h1 class="text-2xl font-black mb-6 tracking-tight text-gray-900 uppercase">申澳芏 Aodu Shen</h1>
-                <p class="text-base text-gray-600 leading-relaxed mb-8">
-                    <span class="font-cn">我是申澳芏，一名独立动画创作者，专注于二维动画、三维动画和定格动画的创作与制作。我的作品涵盖了从概念设计、分镜制作到最终动画呈现的完整流程。我热衷于探索不同的动画风格和技术，致力于通过视觉叙事传达独特的故事和情感。</span>
-                    <br /><br />
-                    <span class="font-en">My name is Aodu Shen, an independent animator specialising in 2D animation, 3D animation, and stop-motion animation. I am involved in every stage of the creative process, from concept design and storyboarding to animation production and final delivery. Through my work, I enjoy experimenting with different visual styles, techniques, and forms of storytelling, aiming to create distinctive and emotionally engaging animated experiences.</span>
+                <h1 class="text-xl font-black mb-4 text-gray-900 uppercase">申澳芏 Aodu Shen</h1>
+                <p class="text-sm md:text-[12px] text-gray-600 leading-[1.65] mb-5">
+                    <span class="font-cn">我是申澳芏，一名具备完整项目执行能力的独立动画创作者，专注于二维动画、三维动画与定格动画。从前期概念开发、角色与场景设计、分镜和动态分镜，到动画制作与最终交付，我能够独立推进完整创作流程，也乐于在团队中协作。我擅长根据项目需求灵活运用不同的视觉风格与制作技术，在保证叙事清晰和执行效率的同时，为作品建立鲜明的视觉语言与情感表达。</span>
+                    <br />
+                    <span class="font-en">My name is Aodu Shen, an independent animator with end-to-end production experience across 2D, 3D, and stop-motion animation. I can take a project from concept development, character and environment design, storyboarding, and animatics through animation production and final delivery, while also collaborating effectively within a team. I adapt visual styles and techniques to each brief, balancing clear storytelling and efficient execution with a distinctive visual language and emotional impact.</span>
                 </p>
-                <div class="mb-10">
-                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4"><i class="fa-solid fa-bolt mr-2 text-gray-500"></i> 专业技能 / Core Skills</h3>
+                <div class="mb-0">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2"><i class="fa-solid fa-bolt mr-2 text-gray-500"></i> 专业技能 / Core Skills</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">2D Animation</span>
-                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">3D Animation</span>
-                        <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Stop-Motion</span>
-                                                <div class="flex flex-wrap gap-2">
-                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">CSP</span>
-                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">TVP</span>
-                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">AE PR PS AI ID</span>
-                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Maya Blender ZBrush Nomad Substance</span>
-                            <span class="bg-gray-50 text-gray-700 px-5 py-2 rounded-full text-sm font-bold border border-gray-100">Storyboard animatic </span>
-                        </div>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">2D Animation</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">3D Animation</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">Stop-Motion</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">CSP</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">TVP</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">AE PR PS AI ID</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">Maya Blender ZBrush Nomad Substance</span>
+                        <span class="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-[11px] font-bold border border-gray-100">Storyboard animatic</span>
                     </div>
                 </div>
             </div>
         </div>
+
     </header>
 
     <hr class="max-w-6xl mx-auto border-gray-200">
 
-    <section id="projects" class="max-w-6xl mx-auto px-6 py-20">
-        <h2 class="text-3xl font-bold mb-16 uppercase tracking-wider text-gray-900 border-l-8 border-gray-300 pl-6 leading-none">01. 精选动画项目 / Projects</h2>
-
-        <div class="mb-20">
-            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-pen-nib"></i> 二维动画 / 2D Projects (4)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-                <div id="followbutterfly-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot">
-                        <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
-                            <video src="预告/Followbutterfly.mp4" poster="预告/posters/followbutterfly.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
-                            <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
-                        </div>
-                    </div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div class="pt-4">
-                            <h4 class="text-base font-bold leading-tight">Followbutterfly</h4>
-                            <h4 class="text-base font-bold leading-tight">追随蝴蝶</h4>
-                        </div>
-                        <div class="space-y-2 pb-4"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情页</a></div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
-                </div>
-
-                <div id="margaret-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='margaret-detail.html'"><video src="预告/The Night Margaret Became a Fairy_1.mp4" poster="预告/posters/margaret.png" loop muted playsinline webkit-playsinline preload="metadata"></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">The Night Margaret Became a Fairy</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="margaret-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《2D项目名称四》</h4><p class="text-gray-500 text-xs mb-4">双击视频进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
-                </div>
-
+    <section id="projects" class="max-w-6xl mx-auto px-6 pt-[0.5cm] pb-10">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-[0.5cm]">
+            <h2 class="text-[15px] font-bold uppercase tracking-wider text-gray-900 border-l-4 border-gray-300 pl-3 leading-none">动画 / Animation</h2>
+            <div class="flex shrink-0 gap-2">
+                <button type="button" aria-label="向左浏览项目" title="向左浏览" onclick="document.getElementById('projects-track').scrollBy({ left: -356, behavior: 'smooth' })" class="w-10 h-10 grid place-items-center rounded-full border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button type="button" aria-label="向右浏览项目" title="向右浏览" onclick="document.getElementById('projects-track').scrollBy({ left: 356, behavior: 'smooth' })" class="w-10 h-10 grid place-items-center rounded-full border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
         </div>
 
-        <div class="mb-20">
-            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-cube"></i> 三维动画 / 3D Projects (2)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-                <div id="deadline-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='deadline-detail.html'"><video src="预告/deadline.mp4" poster="预告/posters/deadline.png" loop muted playsinline webkit-playsinline preload="metadata"></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">The Deadline</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="deadline-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
+        <div id="projects-track" class="grid grid-flow-col gap-4 overflow-x-auto pb-4" style="grid-auto-columns: min(340px, calc(100vw - 3rem)); scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+            <article id="followbutterfly-card" class="project-grid-card scroll-mt-28">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'">
+                    <video src="预告/Followbutterfly.mp4" poster="预告/posters/followbutterfly.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
                 </div>
+                <a href="project-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">Followbutterfly</h4><span class="project-type-label">2D</span></div>
+                    <h4 class="project-grid-title text-base font-bold leading-tight mt-1">追随蝴蝶</h4>
+                </a>
+            </article>
 
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《3D项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
+            <article id="deadline-card" class="project-grid-card scroll-mt-28">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='deadline-detail.html'">
+                    <video src="预告/deadline.mp4" poster="预告/posters/deadline.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
                 </div>
+                <a href="deadline-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">The Deadline</h4><span class="project-type-label">3D</span></div>
+                </a>
+            </article>
 
-            </div>
-        </div>
-
-        <div>
-            <h3 class="text-xl font-bold text-gray-600 mb-8 flex items-center gap-3"><i class="fa-solid fa-camera-retro"></i> 定格动画 / Stop-Motion (2)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-                <div id="stopmotion-project-1-card" class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 scroll-mt-28">
-                    <div class="project-media-slot">
-                        <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='stopmotion-detail.html'">
-                            <video src="预告/In Operation.mp4" poster="预告/posters/in-operation.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
-                            <span class="absolute top-2 right-2 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停播放 / 双击详情</span>
-                        </div>
-                    </div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div class="pt-4">
-                            <h4 class="text-base font-bold leading-tight">In Operation</h4>
-                            <h4 class="text-base font-bold leading-tight">手术中</h4>
-                        </div>
-                        <div class="space-y-2 pb-4"><a href="stopmotion-detail.html" class="block text-center text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-bold transition">📄 查看详情页</a></div>
-                    </div>
+            <article id="stopmotion-project-1-card" class="project-grid-card scroll-mt-28">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='stopmotion-detail.html'">
+                    <video src="预告/In Operation.mp4" poster="预告/posters/in-operation.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
                 </div>
+                <a href="stopmotion-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">In Operation</h4><span class="project-type-label">Stop Motion + 2D</span></div>
+                    <h4 class="project-grid-title text-base font-bold leading-tight mt-1">手术中</h4>
+                </a>
+            </article>
 
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6">
-                    <div class="project-media-slot"><div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='project-detail.html'"><video src="demo.mp4" loop muted></video></div></div>
-                    <div class="project-info-slot flex flex-col justify-between">
-                        <div><h4 class="text-lg font-bold mb-2">《定格项目名称二》</h4><p class="text-gray-500 text-xs mb-4">双击视频区域进入该项目独立详情页。</p></div>
-                        <div class="space-y-2"><a href="project-detail.html" class="block text-center text-xs bg-gray-100 py-2 rounded-lg font-bold">📄 查看详情页</a></div>
-                    </div>
+            <article id="burying-card" class="project-grid-card scroll-mt-28">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='burying-detail.html'">
+                    <video src="预告/Burying.mp4" poster="预告/posters/burying.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
                 </div>
+                <a href="burying-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">Burying</h4><span class="project-type-label">2D</span></div>
+                    <h4 class="project-grid-title text-base font-bold leading-tight mt-1">埋葬时分</h4>
+                </a>
+            </article>
 
-            </div>
+            <article id="margaret-card" class="project-grid-card scroll-mt-28">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='margaret-detail.html'">
+                    <video src="预告/The Night Margaret Became a Fairy_1.mp4" poster="预告/posters/margaret.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
+                </div>
+                <a href="margaret-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">The Night Margaret Became a Fairy</h4><span class="project-type-label">2D</span></div>
+                    <h4 class="project-grid-title text-base font-bold leading-tight mt-1">玛格丽特变成妖精的那晚</h4>
+                </a>
+            </article>
+
+            <article id="steal-body-card" class="project-grid-card">
+                <div class="media-container aspect-video" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='steal-body-detail.html'">
+                    <video src="预告/project-5.mp4" poster="预告/posters/project-5.png" loop muted playsinline webkit-playsinline preload="metadata"></video>
+                    <span class="project-play-hint"><i class="fa-solid fa-play ml-1"></i></span>
+                </div>
+                <a href="steal-body-detail.html" class="block pt-4 text-left hover:text-gray-500 transition">
+                    <div class="project-title-row"><h4 class="project-grid-title text-xl font-bold leading-tight">Let's Steal the Body Together!!!</h4><span class="project-type-label">slideshow</span></div>
+                </a>
+            </article>
+
         </div>
     </section>
 
-    <section id="reels" class="bg-gray-100 text-gray-900 py-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-16 uppercase tracking-wider text-gray-900 border-l-8 border-gray-300 pl-6 leading-none">02. 专业剪辑秀 / Reels</h2>
+    <section id="reels" class="bg-white text-gray-900 pt-10 pb-0">
+            <h2 class="mx-6 md:mx-8 text-[15px] font-bold mb-[0.5cm] tracking-wider text-gray-900 border-l-4 border-gray-300 pl-3 leading-none">角色与视觉开发 / Character &amp; Visual Development</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="light-card">
-                    <h3 class="text-lg font-bold mb-6 text-gray-700 uppercase tracking-widest"><i class="fa-solid fa-clapperboard mr-2"></i> Animatic Reels / 分镜动态板</h3>
-                    <div class="media-container aspect-video mb-6 shadow-md border border-gray-200" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='reel-detail.html'">
-                        <video src="demo.mp4" loop muted></video>
-                        <span class="absolute top-2 right-2 bg-gray-800/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停快进 / 双击进入技术拆解页</span>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-sm text-gray-600">
-                        1. 《影片名字 A》 - 导演/分镜制作
-                    </div>
-                </div>
-
-                <div class="light-card">
-                    <h3 class="text-lg font-bold mb-6 text-gray-700 uppercase tracking-widest"><i class="fa-solid fa-person-running mr-2"></i> Character Animation / 角色动画</h3>
-                    <div class="media-container aspect-video mb-6 shadow-md border border-gray-200" onmouseenter="this.querySelector('video').play()" onmouseleave="this.querySelector('video').pause()" ondblclick="window.location.href='reel-detail.html'">
-                        <video src="demo.mp4" loop muted></video>
-                        <span class="absolute top-2 right-2 bg-gray-800/60 text-white text-[9px] px-2 py-0.5 rounded-full pointer-events-none">悬停快进 / 双击进入技术拆解页</span>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-sm text-gray-600">
-                        1. 《影片名字 D》 - 二维原画关键帧设计
-                    </div>
-                </div>
+            <div id="portfolio-image-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-16.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看角色设计作品">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-16.jpg" alt="角色设计作品" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-14.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看2D与3D角色设计作品">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-14.jpg" alt="2D与3D角色设计作品" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-01.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 1">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-01.jpg" alt="作品集图片 1" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-09.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 2">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-09.jpg" alt="作品集图片 2" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-13.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 3">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-13.jpg" alt="作品集图片 3" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-15.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看游戏美术设计作品">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-15.jpg" alt="游戏美术设计作品" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-02.jpg" class="portfolio-column-start group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 4">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-02.jpg" alt="作品集图片 4" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-07.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 5">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-07.jpg" alt="作品集图片 5" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-11.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 6">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-11.jpg" alt="作品集图片 6" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-03.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 7">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-03.jpg" alt="作品集图片 7" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-10.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 8">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-10.jpg" alt="作品集图片 8" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-06.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 9">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-06.jpg" alt="作品集图片 9" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-12.jpg" class="portfolio-column-start group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 10">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-12.jpg" alt="作品集图片 10" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-04.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 11">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-04.jpg" alt="作品集图片 11" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-05.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 12">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-05.jpg" alt="作品集图片 12" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
+                <button type="button" data-portfolio-full="assets/portfolio-gallery/full/portfolio-08.jpg" class="group relative aspect-video overflow-hidden rounded-md bg-white border border-gray-200 shadow-sm" aria-label="查看作品集图片 13">
+                    <img src="assets/portfolio-gallery/thumb/portfolio-08.jpg" alt="作品集图片 13" loading="lazy" decoding="async" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                </button>
             </div>
-        </div>
     </section>
+
+    <dialog id="portfolio-lightbox" class="m-auto w-[96vw] h-[94vh] max-w-none max-h-none p-0 bg-transparent overflow-visible">
+        <div class="relative w-full h-full flex items-center justify-center">
+            <img id="portfolio-lightbox-image" src="" alt="" class="max-w-full max-h-full object-contain shadow-2xl">
+            <button id="portfolio-lightbox-close" type="button" class="absolute top-3 right-3 w-11 h-11 grid place-items-center rounded-full bg-white/90 text-gray-900 shadow-lg hover:bg-white transition" aria-label="关闭高清图片" title="关闭">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button id="portfolio-lightbox-prev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 grid place-items-center rounded-full bg-white/90 text-gray-900 shadow-lg hover:bg-white transition" aria-label="上一张图片" title="上一张">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="portfolio-lightbox-next" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 grid place-items-center rounded-full bg-white/90 text-gray-900 shadow-lg hover:bg-white transition" aria-label="下一张图片" title="下一张">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <span id="portfolio-lightbox-counter" class="absolute left-1/2 bottom-3 -translate-x-1/2 px-3 py-1 rounded-full bg-black/65 text-white text-xs"></span>
+        </div>
+    </dialog>
 
     <section id="sketches" class="bg-white py-24">
         <div class="max-w-6xl mx-auto px-6">
@@ -611,6 +752,125 @@
                 openProjectDetail(event, detailMedia, detailTarget[1]);
             }
         }, true);
+
+        const portfolioThumbs = Array.from(document.querySelectorAll('[data-portfolio-full]'));
+        const portfolioGrid = document.getElementById('portfolio-image-grid');
+        const portfolioLightbox = document.getElementById('portfolio-lightbox');
+        const portfolioLightboxImage = document.getElementById('portfolio-lightbox-image');
+        const portfolioLightboxCounter = document.getElementById('portfolio-lightbox-counter');
+        let portfolioCurrentIndex = 0;
+        let portfolioTouchStartX = 0;
+        let portfolioItemsPerRow = 0;
+
+        const rebuildPortfolioRows = () => {
+            if (!portfolioGrid) {
+                return;
+            }
+
+            const nextItemsPerRow = window.innerWidth >= 768 ? 4 : 2;
+            if (nextItemsPerRow === portfolioItemsPerRow && portfolioGrid.querySelector('.portfolio-row')) {
+                return;
+            }
+
+            portfolioItemsPerRow = nextItemsPerRow;
+            portfolioThumbs.forEach((thumb) => portfolioGrid.appendChild(thumb));
+            portfolioGrid.querySelectorAll('.portfolio-row').forEach((row) => row.remove());
+
+            for (let index = 0; index < portfolioThumbs.length; index += portfolioItemsPerRow) {
+                const row = document.createElement('div');
+                row.className = 'portfolio-row';
+                portfolioThumbs.slice(index, index + portfolioItemsPerRow).forEach((thumb) => row.appendChild(thumb));
+                portfolioGrid.appendChild(row);
+            }
+        };
+
+        portfolioThumbs.forEach((thumb) => {
+            const previewImage = thumb.querySelector('img');
+            if (previewImage && thumb.dataset.portfolioFull) {
+                const updateRatio = () => {
+                    if (previewImage.naturalWidth && previewImage.naturalHeight) {
+                        thumb.style.setProperty('--portfolio-ratio', String(previewImage.naturalWidth / previewImage.naturalHeight));
+                    }
+                };
+
+                previewImage.addEventListener('load', updateRatio);
+                previewImage.src = thumb.dataset.portfolioFull;
+                if (previewImage.complete) {
+                    updateRatio();
+                }
+            }
+        });
+        rebuildPortfolioRows();
+        window.addEventListener('resize', rebuildPortfolioRows);
+
+        const showPortfolioImage = (index) => {
+            if (!portfolioThumbs.length || !portfolioLightboxImage) {
+                return;
+            }
+
+            portfolioCurrentIndex = (index + portfolioThumbs.length) % portfolioThumbs.length;
+            const selectedThumb = portfolioThumbs[portfolioCurrentIndex];
+            const selectedImage = selectedThumb.querySelector('img');
+            portfolioLightboxImage.src = selectedThumb.dataset.portfolioFull;
+            portfolioLightboxImage.alt = selectedImage ? selectedImage.alt : `作品集图片 ${portfolioCurrentIndex + 1}`;
+            portfolioLightboxCounter.textContent = `${portfolioCurrentIndex + 1} / ${portfolioThumbs.length}`;
+        };
+
+        const closePortfolioLightbox = () => {
+            if (!portfolioLightbox) {
+                return;
+            }
+
+            if (typeof portfolioLightbox.close === 'function') {
+                portfolioLightbox.close();
+            } else {
+                portfolioLightbox.removeAttribute('open');
+            }
+        };
+
+        portfolioThumbs.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => {
+                showPortfolioImage(index);
+                if (typeof portfolioLightbox.showModal === 'function') {
+                    portfolioLightbox.showModal();
+                } else {
+                    portfolioLightbox.setAttribute('open', '');
+                }
+            });
+        });
+
+        document.getElementById('portfolio-lightbox-close')?.addEventListener('click', closePortfolioLightbox);
+        document.getElementById('portfolio-lightbox-prev')?.addEventListener('click', () => showPortfolioImage(portfolioCurrentIndex - 1));
+        document.getElementById('portfolio-lightbox-next')?.addEventListener('click', () => showPortfolioImage(portfolioCurrentIndex + 1));
+
+        portfolioLightbox?.addEventListener('click', (event) => {
+            if (event.target === portfolioLightbox) {
+                closePortfolioLightbox();
+            }
+        });
+
+        portfolioLightbox?.addEventListener('touchstart', (event) => {
+            portfolioTouchStartX = event.changedTouches[0].clientX;
+        }, { passive: true });
+
+        portfolioLightbox?.addEventListener('touchend', (event) => {
+            const distance = event.changedTouches[0].clientX - portfolioTouchStartX;
+            if (Math.abs(distance) > 50) {
+                showPortfolioImage(portfolioCurrentIndex + (distance < 0 ? 1 : -1));
+            }
+        }, { passive: true });
+
+        document.addEventListener('keydown', (event) => {
+            if (!portfolioLightbox?.open) {
+                return;
+            }
+
+            if (event.key === 'ArrowLeft') {
+                showPortfolioImage(portfolioCurrentIndex - 1);
+            } else if (event.key === 'ArrowRight') {
+                showPortfolioImage(portfolioCurrentIndex + 1);
+            }
+        });
 
         if (shouldSkipIntro && splash) {
             if (splashVideo) {
