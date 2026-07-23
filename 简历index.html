@@ -240,6 +240,125 @@
             pointer-events: none;
             z-index: -1;
         }
+        .site-nav {
+            padding: 1rem 2rem;
+        }
+        .site-nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+        .site-nav-brand {
+            flex-shrink: 0;
+        }
+        .site-nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.5rem 1.5rem;
+        }
+        .site-nav-toggle {
+            display: none;
+        }
+        .contact-line {
+            overflow-wrap: anywhere;
+        }
+        @media (max-width: 767px) {
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            body {
+                background-attachment: scroll;
+            }
+            .site-content::before {
+                margin: 0.5rem;
+                border-radius: 12px;
+            }
+            .site-nav {
+                padding: 0.65rem 1rem;
+            }
+            .site-nav-inner {
+                gap: 0.75rem;
+            }
+            .site-nav-brand {
+                max-width: calc(100vw - 5rem);
+                overflow: hidden;
+                font-size: 0.95rem;
+                letter-spacing: 0.08em;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .site-nav-toggle {
+                display: grid;
+                width: 40px;
+                height: 40px;
+                flex: 0 0 40px;
+                place-items: center;
+                border: 1px solid #d1d5db;
+                border-radius: 8px;
+                color: #4b5563;
+                background: rgba(255, 255, 255, 0.9);
+            }
+            .site-nav-links {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                display: grid;
+                gap: 0;
+                padding: 0.35rem 1rem 0.85rem;
+                border-bottom: 1px solid #e5e7eb;
+                background: rgba(255, 255, 255, 0.97);
+                box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateY(-0.5rem);
+                transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            }
+            .site-nav-links.is-open {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+            .site-nav-links a {
+                display: block;
+                padding: 0.75rem 0;
+                border-top: 1px solid #e5e7eb;
+                font-size: 0.875rem;
+                line-height: 1.35;
+            }
+            .site-nav-links a:last-child {
+                padding-left: 0;
+                border-left: 0;
+            }
+            #about {
+                padding-top: 2.5rem;
+            }
+            #about > div {
+                gap: 2rem;
+            }
+            #about > div > div:first-child {
+                margin-right: auto;
+                margin-left: auto;
+            }
+            #contact {
+                padding-right: 1.5rem;
+                padding-left: 1.5rem;
+            }
+            .contact-line {
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+            }
+            .contact-separator {
+                display: none;
+            }
+        }
         /* light-card override for media containers in light sections */
         .light-card .media-container {
             background-color: #f3f4f6; /* gray-100 */
@@ -351,13 +470,18 @@
     </div>
 
     <div class="site-content">
-    <nav class="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 px-8 py-4 flex justify-between items-center gap-6">
-        <div class="shrink-0 text-xl font-bold tracking-widest text-gray-600 uppercase">申澳芏 Aodu Shen</div>
-        <div class="flex flex-wrap justify-end gap-x-6 gap-y-2 text-sm font-medium text-gray-600">
+    <nav class="site-nav sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 z-50" aria-label="主导航">
+        <div class="site-nav-inner">
+        <a href="#about" class="site-nav-brand text-xl font-bold tracking-widest text-gray-600 uppercase">申澳芏 Aodu Shen</a>
+        <button id="site-nav-toggle" class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="打开导航菜单">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        <div id="site-nav-links" class="site-nav-links text-sm font-medium text-gray-600">
             <a href="#about" class="hover:text-gray-600 transition">关于我 / About</a>
             <a href="#projects" class="hover:text-gray-600 transition">动画 / Animation</a>
             <a href="#reels" class="hover:text-gray-600 transition">角色与视觉开发 / Character &amp; Visual Development</a>
             <a href="#contact" class="hover:text-gray-600 transition border-l pl-6 border-gray-300">联系我 / Contact</a>
+        </div>
         </div>
     </nav>
 
@@ -561,7 +685,11 @@
     </dialog>
 
     <footer id="contact" class="bg-gray-100 py-16 border-t border-gray-200 text-center">
-        <p class="text-sm font-bold text-gray-500">Email: shenaodu202309@gmail.com | WeChat: 13122201521</p>
+        <p class="contact-line text-sm font-bold text-gray-500">
+            <span>Email: shenaodu202309@gmail.com</span>
+            <span class="contact-separator" aria-hidden="true">|</span>
+            <span>WeChat: 13122201521</span>
+        </p>
     </footer>
 
     <script>
@@ -571,6 +699,41 @@
         const shouldSkipIntro = new URLSearchParams(window.location.search).get('skipIntro') === '1';
         const returnTarget = window.location.hash;
         let splashPlayAttempted = false;
+        const siteNavToggle = document.getElementById('site-nav-toggle');
+        const siteNavLinks = document.getElementById('site-nav-links');
+
+        function setMobileNavOpen(isOpen) {
+            if (!siteNavToggle || !siteNavLinks) {
+                return;
+            }
+
+            siteNavLinks.classList.toggle('is-open', isOpen);
+            siteNavToggle.setAttribute('aria-expanded', String(isOpen));
+            siteNavToggle.setAttribute('aria-label', isOpen ? '关闭导航菜单' : '打开导航菜单');
+            siteNavToggle.innerHTML = isOpen
+                ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
+                : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+        }
+
+        siteNavToggle?.addEventListener('click', () => {
+            setMobileNavOpen(siteNavToggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        siteNavLinks?.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => setMobileNavOpen(false));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setMobileNavOpen(false);
+            }
+        });
+
+        window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+            if (event.matches) {
+                setMobileNavOpen(false);
+            }
+        });
 
         function tryStartSplashVideo() {
             if (!splashVideo || shouldSkipIntro) {
